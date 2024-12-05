@@ -116,7 +116,7 @@ pytz==2024.2
 pywinpty==2.0.14
 PyYAML==6.0.2
 pyzmq==26.2.0
-questionary==1.6.0
+questionary==2.0.0
 referencing==0.35.1
 requests==2.32.3
 rfc3339-validator==0.1.4
