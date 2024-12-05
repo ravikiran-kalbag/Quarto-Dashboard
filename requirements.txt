@@ -113,8 +113,8 @@ python-dateutil==2.9.0.post0
 python-json-logger==2.0.7
 python-multipart==0.0.17
 pytz==2024.2
-pywin32==306
-pywinpty
+pywin32==308; sys_platform == 'win32'
+pywinpty>=2.0.0
 PyYAML==6.0.2
 pyzmq==26.2.0
 questionary==1.6.0
