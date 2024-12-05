@@ -134,7 +134,7 @@ soupsieve==2.6
 st-annotated-text==4.0.1
 st-theme==1.2.3
 stack-data==0.6.3
-starlette==0.41.3
+starlette==0.34.0
 statsmodels==0.14.4
 streamlit==1.40.1
 streamlit-camera-input-live==0.2.0
