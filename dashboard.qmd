@@ -1,0 +1,81 @@
+---
+title: "AM Process Performance Baseline"
+author: "Ravikiran Kalbag"
+format: 
+  dashboard:
+    theme: cosmo
+    scrolling: true
+logo: CG_logo.png
+---
+
+```{python}
+# prepare data
+import pandas as pd
+import numpy as np
+#from IPython.display import display
+from shiny import ui, render, App
+data_1 = pd.read_excel("BU_wise_effort_distribution.xlsx", sheet_name="Base Data")
+#data_2 = pd.read_excel("Backlog Index.xlsx")
+```
+
+# Average Effort Per Ticket
+
+# AET Loaded
+## Row {height=17%}
+``` {python}
+def summary(df, col, col1):
+    data = {}
+    for i in df[col].unique():
+        parameter = "AET (L)- {}".format(i)
+        count = round(df[df[col] == i][col1].count(),0)
+        mean = round(df[df[col] == i][col1].mean(),2)
+        stdev = round(df[df[col] == i][col1].std(),2)
+        fifth_value = round(df[df[col]==i][col1].quantile(0.05),2)
+        median = round(df[df[col] == i][col1].quantile(0.5),2)
+        nine_five_value = round(df[df[col]==i][col1].quantile(0.95),2)
+        data[i] = {"Parameter": parameter,
+        "Count": count, "Mean": mean, "Std Dev": stdev, "5th Percentile": fifth_value, "Median": median,
+        "95th Percentile": nine_five_value}
+    summary_dict = pd.DataFrame.from_dict(data, orient='index')
+    summary_dict = summary_dict.set_index("Parameter")
+    return summary_dict
+
+
+results = summary(data_1, "Technology Type", "AET Loaded value")
+
+results
+```
+
+## Row {height=50%}
+``` {python}
+def summary_1(df, col, col1, col2):
+    data = []
+    for i in df[col].unique():
+        for j in df[col1].unique():
+            filtered_data = df[(df[col] == i) & (df[col1] == j)]
+            Parameter = "AET (L) - {}".format(i)
+            Market_Unit = j
+            min = round(filtered_data[col2].min(),2)
+            med = round(filtered_data[col2].median(),2)
+            max = round(filtered_data[col2].max(),2)
+            data.append({"Parameter": Parameter, col1 : Market_Unit, "Minimum": min, "Median": med, "Maximum": max})
+    summary_dict = pd.DataFrame(data)
+    summary_dict = summary_dict.set_index("Parameter")
+    summary_dict = summary_dict.pivot(columns=col1, values=['Minimum', 'Median', 'Maximum'])
+    summary_dict = summary_dict.stack()
+   
+    return summary_dict
+
+#| label: tbl-planets
+#| tbl-cap: Market Unit wise Performance of AET (L)
+results = summary_1(data_1, "Technology Type", "MU", "AET Loaded value")
+results
+```
+``` {python}
+results = summary_1(data_1, "Technology Type", "BU Name", "AET Loaded value")
+results
+```
+
+# Backlog Index
+
+# Effort Distribution
