@@ -1,8 +1,0 @@
-On demand --> Pay by second --> On the instances for 30 sec, pay for 30 sec --> Pay for Running Duration --> For short term irregular workloads --> Costliest
-
-Saving plan --> Save 72% than On demand --> Prices paid for usage remains same --> Commitment of 1-3 years --> All upfronts, partial, etc
-
-Reserved Instances --> 
-
-
-
